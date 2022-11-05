@@ -10,15 +10,49 @@ export class App extends Component {
     filter: '',
   };
 
-  addContact = data => {
-    const contactList = {
-      name: data.name,
-      number: data.number,
-      id: nanoid(),
+  // addContact = value => {
+  //   console.log(value);
+
+  //   const contactList = {
+  //     name: value.name,
+  //     number: value.number,
+  //     id: nanoid(),
+  //   };
+  //   this.setState(prevState => ({
+  //     contacts: [contactList, ...prevState.contacts],
+  //   }));
+  // };
+
+  // findDublicateContact = (contact, contactsList) => {
+  //   return contactsList.find(
+  //     item => item.name.toLowerCase() === contact.name.toLowerCase()
+  //   );
+  // };
+
+  handleSubmit = values => {
+    const { name, number } = values;
+
+    const contact = {
+      name,
+      number,
     };
-    this.setState(prevState => ({
-      contacts: [contactList, ...prevState.contacts],
-    }));
+
+    const dublicateContact = this.findDublicateContact(
+      contact,
+      this.state.contacts
+    );
+
+    dublicateContact
+      ? alert(`${contact.name} is already in contacts`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, { ...values, id: nanoid() }],
+        }));
+  };
+
+  findDublicateContact = (contact, contactsList) => {
+    return contactsList.find(
+      item => item.name.toLowerCase() === contact.name.toLowerCase()
+    );
   };
 
   deliteContact = contactId => {
@@ -41,7 +75,7 @@ export class App extends Component {
     );
     return (
       <div>
-        <Form onSubmit={this.addContact} />
+        <Form onSubmit={this.handleSubmit} />
         <ContactList
           contactsArr={visibleContacts}
           onDelitContact={this.deliteContact}

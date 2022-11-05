@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types';
+
 export const ContactList = ({ contactsArr, onDelitContact }) => {
   return contactsArr.map(({ id, name, number }) => (
     <ul>
@@ -8,4 +10,14 @@ export const ContactList = ({ contactsArr, onDelitContact }) => {
       </li>
     </ul>
   ));
+};
+
+ContactList.propTypes = {
+  requiredCard: PropTypes.arrayOf(
+    PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ),
 };
