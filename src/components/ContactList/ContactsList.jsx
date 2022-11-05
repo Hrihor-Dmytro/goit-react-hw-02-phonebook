@@ -6,6 +6,7 @@ import {
   ContactTel,
   ContactButton,
 } from './ContactList.styled';
+
 export const ContactList = ({ contactsArr, onDelitContact }) => {
   return contactsArr.map(({ id, name, number }) => (
     <SectionList>
